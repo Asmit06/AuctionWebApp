@@ -124,6 +124,91 @@ public class DbInitializer
                     ImageUrl = "https://images.samsung.com/is/image/samsung/p6pim/in/qa75qn90cakxxl/gallery/in-qled-qn90c-454657-qa75qn90cakxxl-536415727?$720_576_PNG$"
                 }
             },
+
+            new Auction
+            {
+                Id = Guid.NewGuid(),
+                Status = Status.Live,
+                ReservePrice = 5000,
+                Seller = "tom",
+                AuctionEnd = DateTime.UtcNow.AddDays(40),
+                Item = new Item
+                {
+                    ItemName = "Leather Jacket",
+                    ItemDesc = "Men's Black Leather Jacket - Size M",
+                    Type = "Clothes",
+                    Year = 2022,
+                    ImageUrl = "https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2Ffd%2Fdc%2Ffddcbb62e1b0a7d6daf28b92ef2882a8aed56062.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%5D%2Ctype%5BLOOKBOOK%5D%2Cres%5Bm%5D%2Chmver%5B1%5D&call=url[file:/product/main]"
+                }
+            },
+
+            new Auction
+            {
+                Id = Guid.NewGuid(),
+                Status = Status.Live,
+                ReservePrice = 2000,
+                Seller = "alice",
+                AuctionEnd = DateTime.UtcNow.AddDays(10),
+                Item = new Item
+                {
+                    ItemName = "H&M Jersey Shirt",
+                    ItemDesc = "Regular Fit Short-sleeved jersey shirt Khaki Green",
+                    Type = "Clothes",
+                    Year = 2023,
+                    ImageUrl = "https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2Ff8%2F32%2Ff8327bf8e2929a50debb3fa7998fd600453e5fd7.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]"
+                }
+            },
+
+            new Auction
+            {
+                Id = Guid.NewGuid(),
+                Status = Status.Live,
+                ReservePrice = 7000,
+                Seller = "bob",
+                AuctionEnd = DateTime.UtcNow.AddDays(15),
+                Item = new Item
+                {
+                    ItemName = "Open-back pointelle-knit top",
+                    ItemDesc = "Short, fitted top in a soft pointelle knit with a boat neckline and a partially open back with decorative ties ",
+                    Type = "Clothes",
+                    Year = 2023,
+                    ImageUrl = "https://lp2.hm.com/hmgoepprod?set=source[/78/c5/78c5c394cc21f06688a2e04f0d9a90d4f992ec75.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[3]&call=url[file:/product/main]"
+                }
+            },
+
+            new Auction
+            {
+                Id = Guid.NewGuid(),
+                Status = Status.Live,
+                ReservePrice = 50000,
+                Seller = "tom",
+                AuctionEnd = DateTime.UtcNow.AddDays(45),
+                Item = new Item
+                {
+                    ItemName = "Samsung Galaxy S24",
+                    ItemDesc = "Welcome to the era of mobile AI. With Galaxy S24 | S24+ in your hands, you can unleash whole new levels of creativity, productivity and possibility ",
+                    Type = "Electronics",
+                    Year = 2024,
+                    ImageUrl = "https://images.samsung.com/is/image/samsung/p6pim/in/2401/gallery/in-galaxy-s24-492654-sm-s921bzvcins-thumb-539572802?imwidth=480"
+                }
+            },
+
+            new Auction
+            {
+                Id = Guid.NewGuid(),
+                Status = Status.Live,
+                ReservePrice = 50000,
+                Seller = "tom",
+                AuctionEnd = DateTime.UtcNow.AddDays(45),
+                Item = new Item
+                {
+                    ItemName = "Refrigerator Samsung",
+                    ItemDesc = "550 L Twin Cooling Plus™ French Door Refrigerator RF57A5032S9",
+                    Type = "Electronics",
+                    Year = 2024,
+                    ImageUrl = "https://images.samsung.com/is/image/samsung/p6pim/in/rf57a5032s9-tl/gallery/in-ref-convertible-freezer-rf57a5032s9-tl-436322271?$1300_1038_PNG$"
+                }
+            },
         };
 
         context.AddRange(auctions);

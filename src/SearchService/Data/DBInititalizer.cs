@@ -3,11 +3,16 @@ using Microsoft.VisualBasic;
 using MongoDB.Driver;
 using MongoDB.Entities;
 namespace SearchService;
-
+using Microsoft.Extensions.Configuration;
 public class DBInititalizer
 {
     public static async Task InitDb(WebApplication app){
-            await DB.InitAsync("SearchDb", "localhost", 27017);
+            //await DB.InitAsync("SearchDb", "mongodb", 27017);
+            
+            //await DB.InitAsync("SearchDb", "mongodb://root:mongopw@mongodb", 27017);
+
+            await DB.InitAsync("SearchDb", MongoClientSettings
+            .FromConnectionString(app.Configuration.GetConnectionString("MongoDbConnection")));
 
             await DB.Index<Item>()
             .Key(x => x.ItemName, KeyType.Text)
