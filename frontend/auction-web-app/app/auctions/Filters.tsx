@@ -54,62 +54,87 @@ const Filters = () => {
  };
   
   return (
-    <div className='flex justify-between items-center mb-4'>
-      {/* <div className='flex'>
-          <span className='uppercase text-sm text-gray-500 mr-2'>Order by:</span>
-          <div className="order-buttons flex">
-                {orderButtons.map(({ label, icon: Icon, value }) => (
-                  <button 
-                    className="btn btn-outline btn-info btn-xs ml-4"
-                    key={value}
-                    onClick={() => setParams({ orderBy: value })}
-                  >
-                     {label} <Icon className='mr-3 h-4 w-4' />
-                  </button>
-                ))}
-          </div>            
-      </div> */}
+  //   <div className='flex justify-between items-center mb-4'>
+  //       <div className='flex flex-col lg:flex-row md:flex-row sm:flex-row'>
+  //         <span className='uppercase text-sm text-gray-500 mr-2 sm:mr-4'>Order by:</span>
+  //         <div className="order-buttons flex flex-col sm:flex-row">
+  //             {orderButtons.map(({ label, icon: Icon, value }) => (
+  //               <button 
+  //                 className="btn btn-outline btn-info btn-xs ml-4 sm:ml-6"
+  //                 key={value}
+  //                 onClick={() => setParams({ orderBy: value })}
+  //               >
+  //                 {label} <Icon className='mr-3 h-4 w-4' />
+  //               </button>
+  //             ))}
+  //         </div>            
+  //       </div>
 
-        <div className='flex flex-col lg:flex-row md:flex-row sm:flex-row'>
-          <span className='uppercase text-sm text-gray-500 mr-2 sm:mr-4'>Order by:</span>
-          <div className="order-buttons flex flex-col sm:flex-row">
-              {orderButtons.map(({ label, icon: Icon, value }) => (
-                <button 
-                  className="btn btn-outline btn-info btn-xs ml-4 sm:ml-6"
-                  key={value}
-                  onClick={() => setParams({ orderBy: value })}
-                >
-                  {label} <Icon className='mr-3 h-4 w-4' />
-                </button>
-              ))}
-          </div>            
-        </div>
+  //       <div className='flex flex-col lg:flex-row md:flex-row sm:flex-row'>
+  //         <span className='uppercase text-sm text-gray-500 mr-2 sm:mr-4'>Order by:</span>
+  //         <div className="order-buttons flex flex-col sm:flex-row">
+  //             {filterButtons.map(({ label, icon: Icon, value }) => (
+  //               <button 
+  //                 className="btn btn-outline btn-primary btn-xs ml-4 sm:ml-6"
+  //                 key={value}
+  //                 onClick={() => setParams({ filterBy: value })}
+  //               >
+  //                 {label} <Icon className='mr-3 h-4 w-4' />
+  //               </button>
+  //             ))}
+  //         </div>
+  //       </div>
 
-        <div className='flex flex-col lg:flex-row md:flex-row sm:flex-row'>
-          <span className='uppercase text-sm text-gray-500 mr-2 sm:mr-4'>Order by:</span>
-          <div className="order-buttons flex flex-col sm:flex-row">
-              {filterButtons.map(({ label, icon: Icon, value }) => (
-                <button 
-                  className="btn btn-outline btn-primary btn-xs ml-4 sm:ml-6"
-                  key={value}
-                  onClick={() => setParams({ filterBy: value })}
-                >
-                  {label} <Icon className='mr-3 h-4 w-4' />
-                </button>
-              ))}
-          </div>
-        </div>
+  //     <div>
+  //       <select className="select select-bordered w-full select-sm max-w-xs" value={selectedOption} onChange={handleChange}>
+  //         <option value="">Category</option>
+  //         <option value="Automobile">Automobile</option>
+  //         <option value="Clothes">Clothes</option>
+  //         <option value="Electronics">Electronics</option>
+  //       </select>
+  //     </div>
+  // </div>
 
-      <div>
-        <select className="select select-bordered w-full select-sm max-w-xs" value={selectedOption} onChange={handleChange}>
-          <option value="">Category</option>
-          <option value="Automobile">Automobile</option>
-          <option value="Clothes">Clothes</option>
-          <option value="Electronics">Electronics</option>
-        </select>
+  <div className='grid mb-5 grid-cols-1 md:grid-cols-3 gap-4'>
+
+    <div className='flex flex-col'>
+      <span className='uppercase mb-2 text-sm text-gray-500 mr-2 sm:mr-4'>Order by:</span>
+      <div className="order-buttons flex flex-col sm:flex-row">
+          {orderButtons.map(({ label, icon: Icon, value }) => (
+            <button 
+              className="btn btn-outline btn-info btn-xs ml-4 sm:ml-6"
+              key={value}
+              onClick={() => setParams({ orderBy: value })}
+            >
+              {label} <Icon className='mr-3 h-4 w-4' />
+            </button>
+          ))}
+      </div>            
+    </div>
+
+    <div className='flex flex-col'>
+      <span className='uppercase mb-2 text-sm text-gray-500 mr-2 sm:mr-4'>Filter by:</span>
+      <div className="order-buttons flex flex-col sm:flex-row">
+          {filterButtons.map(({ label, icon: Icon, value }) => (
+            <button 
+              className="btn btn-outline btn-primary btn-xs ml-4 sm:ml-6"
+              key={value}
+              onClick={() => setParams({ filterBy: value })}
+            >
+              {label} <Icon className='mr-3 h-4 w-4' />
+            </button>
+          ))}
       </div>
+    </div>
 
-      
+    <div>
+      <select className="select select-bordered w-full select-sm max-w-xs" value={selectedOption} onChange={handleChange}>
+        <option value="">Category</option>
+        <option value="Automobile">Automobile</option>
+        <option value="Clothes">Clothes</option>
+        <option value="Electronics">Electronics</option>
+      </select>
+    </div>
   </div>
 
     
