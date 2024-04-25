@@ -3,6 +3,7 @@ import React from 'react'
 import Timer from './Timer'
 import ImageContainer from './ImageContainer'
 import { Auction } from '@/types'
+import Link from 'next/link'
 
 type Props = {
     auction: Auction
@@ -10,7 +11,7 @@ type Props = {
 
 const AuctionCard = ({auction} : Props) => {
   return (
-    <a href='#' className='group'>
+    <Link href={`auctions/details/${auction.id}`} className='group'>
             <div className='card w-78 bg-base-100 shadow-xl aspect-w-16 aspect-h-10 rounded-lg overflow-hidden'>
                 <div>
                     <ImageContainer imageUrl={auction.imageUrl}/>
@@ -27,7 +28,7 @@ const AuctionCard = ({auction} : Props) => {
                 </div> */}
             </div>
 
-        </a>
+        </Link>
 
     
   )

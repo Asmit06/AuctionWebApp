@@ -133,6 +133,7 @@ const Filters = () => {
         <option value="Automobile">Automobile</option>
         <option value="Clothes">Clothes</option>
         <option value="Electronics">Electronics</option>
+        <option value="Kids">Kids Section</option>
       </select>
     </div>
   </div>

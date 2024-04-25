@@ -9,6 +9,11 @@ const nextConfig = {
         },
         {
           protocol: 'https',
+          hostname: 'pixabay.com',
+          pathname: '**',
+        },
+        {
+          protocol: 'https',
           hostname: 'lp2.hm.com',
           pathname: '**',
         },

@@ -27,7 +27,9 @@ const Listings = () => {
     searchTerm: state.searchTerm,
     Type: state.Type,
     orderBy: state.orderBy,
-    filterBy: state.filterBy
+    filterBy: state.filterBy,
+    seller: state.seller,
+    winner: state.winner
   }), shallow);
 
   const setParams = useParamsStore(state => state.setParams);
