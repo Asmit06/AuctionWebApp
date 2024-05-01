@@ -1,33 +1,23 @@
-using AuctionService.Data;
-using Microsoft.EntityFrameworkCore;
+using BiddingService;
 using MassTransit;
-using AuctionService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MongoDB.Driver;
+using MongoDB.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<AuctionDbContext>(opt =>
-{
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddMassTransit(X=>
 {
-    X.AddEntityFrameworkOutbox<AuctionDbContext>(o => 
-    {
-        o.QueryDelay = TimeSpan.FromSeconds(10);
-        o.UsePostgres();
-        o.UseBusOutbox();
-    });
+    X.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
 
-    X.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
-
-    X.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
+    X.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("bids", false));
 
     X.UsingRabbitMq((context, cfg) => {
-        cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>{
+        //cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>{
+        cfg.Host(builder.Configuration.GetValue<string>("RabbitMq:Host", "localhost"), "/", host => {
             host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
             host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
         });
@@ -43,23 +33,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters.ValidateAudience = false;
         options.TokenValidationParameters.NameClaimType = "username";
     });
-builder.Services.AddGrpc();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddHostedService<CheckAuctionFinished>();
+builder.Services.AddScoped<GrpcAuctionClient>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGrpcService<GrpcAuctionService>();
 
-try
-{
-    DbInitializer.InitDb(app);
-}catch (Exception e)
-{
-    Console.WriteLine(e);
-}
+var connectionString = builder.Configuration.GetConnectionString("BidDbConnection") ?? "mongodb://localhost:27017";
+
+//await DB.InitAsync("BidDB", "localhost", 27017);
+await DB.InitAsync("BidDB", MongoClientSettings
+             .FromConnectionString(connectionString));
 
 app.Run();
