@@ -6,7 +6,7 @@ import React from 'react'
 const LoginButton = () => {
   return (
     <>
-        <button className="btn btn-ghost" onClick={()=> signIn('id-server', {callbackUrl: '/'})}>
+        <button className="btn btn-ghost" onClick={()=> signIn('id-server', {callbackUrl: '/'}, {prompt: 'login'})}>
             Login
         </button>
     </>

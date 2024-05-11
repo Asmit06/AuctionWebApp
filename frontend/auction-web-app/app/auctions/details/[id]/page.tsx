@@ -1,4 +1,4 @@
-import { getDetailedViewData } from '@/app/actions/AuctionActiona'
+import { getBidsForAuction, getDetailedViewData } from '@/app/actions/AuctionActiona'
 import Heading from '@/app/components/Heading';
 import React from 'react'
 import Timer from '../../Timer';
@@ -7,10 +7,13 @@ import TableDetails from './TableDetails';
 import { getCurrentuser } from '@/app/actions/AuthActions';
 import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
+import BidItem from './BidItem';
+import BidList from './BidList';
 
 const Details = async ({params} : {params: {id : string}}) => {
   const data = await getDetailedViewData(params.id);
   const user = await getCurrentuser();
+  
   return (
     <div>
       <div className='flex justify-between'>
@@ -35,9 +38,7 @@ const Details = async ({params} : {params: {id : string}}) => {
           <ImageContainer imageUrl={data.imageUrl} />
         </div>
 
-        <div className='border-2 rounded-lg p-2 bg-gray-100'>
-          <Heading title='Bids' />
-        </div>
+        <BidList user={user} auction={data}/>
       </div>
 
       <div className='mt-3 grid grid-cols-1 rounded-lg'>

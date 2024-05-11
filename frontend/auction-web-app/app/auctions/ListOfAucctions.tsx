@@ -8,6 +8,7 @@ import { useParamsStore } from '@/hooks/useZustandStore';
 import { shallow } from 'zustand/shallow';
 import qs from 'query-string';
 import Filters from './Filters';
+import { useAuctionStore } from '@/hooks/useAuctionStore';
 // async function getData(): Promise<PagedResult<Auction>> {
 //     const res = await fetch('http://localhost:6001/search?pageSize=4');
 //     if(!res.ok) throw new Error("Failed to setch data");
@@ -20,8 +21,8 @@ const Listings = () => {
   // const [pageCount , setPageCount] = useState(0);
   // const [pageNumber , setPageNumber] = useState(1);
 
-  const [data, setData] = useState<PagedResult<Auction>>();
-  
+  //const [data, setData] = useState<PagedResult<Auction>>();
+  const [loading, setLoading] = useState(true);
   const params = useParamsStore(state => ({
     pageNumber: state.pageNumber,
     searchTerm: state.searchTerm,
@@ -31,6 +32,13 @@ const Listings = () => {
     seller: state.seller,
     winner: state.winner
   }), shallow);
+
+  const data = useAuctionStore(state => ({
+      auctions: state.auctions,
+      totalCount: state.totalCount,
+      pageCount: state.pageCount
+  }), shallow);
+  const setData = useAuctionStore(state => state.setData);
 
   const setParams = useParamsStore(state => state.setParams);
   const url = qs.stringifyUrl({ url: '', query: params });
@@ -44,17 +52,18 @@ const Listings = () => {
       // setAuctions(data.results);
       // setPageCount(data.pageCount);
       setData(data);
-      console.log(url);
+      setLoading(false);
+      //console.log(url);
     })
-  },[url]);
+  },[url, setData]);
 
-  if(!data) return <h3>Loading ...</h3>
+  if(loading) return <h3>Loading ...</h3>
 
   return (
     <>
       <Filters />
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-100'>
-        {data && data.results.map((auction)=>(
+        {data.auctions.map((auction)=>(
           <AuctionCard auction={auction} key={auction.id}/>
         ))}
       </div>

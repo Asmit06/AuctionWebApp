@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import Input from '../components/Input';
-import ImageUpload from '../components/ImageUpload';
 import { CldUploadWidget } from 'next-cloudinary';
 import { createAuction, updateAuction } from '../actions/AuctionActiona';
 import { usePathname, useRouter } from 'next/navigation';
@@ -28,7 +27,7 @@ const AuctionForm = ({ auction }: Props) => {
                 reset({ itemName, itemDesc, type, year });
             }
             setFocus('itemName');
-        }, [setFocus])
+        }, [setFocus, auction, reset])
 
     const onSubmit = async (data: FieldValues) => {
         //console.log(data);
@@ -82,7 +81,7 @@ const AuctionForm = ({ auction }: Props) => {
                 <input 
                     type="text" 
                     placeholder="Item Name" 
-                    value={auction?.itemName}
+                    defaultValue ={auction?.itemName}
                     className={`input input-bordered w-full max-w-xs ${errors.ItemName ? 'border-red-500' : ''}`} 
                     {...register("ItemName", { required: "Item Name is required" })} 
                 />
@@ -93,7 +92,7 @@ const AuctionForm = ({ auction }: Props) => {
                 <label className="mb-2 text-sm font-medium text-gray-700">Item Description</label>
                 <textarea 
                     placeholder="Item Description" 
-                    value={auction?.itemDesc}
+                    defaultValue ={auction?.itemDesc}
                     className={`textarea textarea-bordered w-full max-w-xs ${errors.ItemDesc ? 'border-red-500' : ''}`} 
                     {...register("ItemDesc", { required: "Item Description is required" })} 
                 />
@@ -107,7 +106,7 @@ const AuctionForm = ({ auction }: Props) => {
                 <select 
                     className={`select select-bordered w-full max-w-xs ${errors.Type ? 'border-red-500' : ''}`} 
                     {...register("Type", { required: "Category is required" })}
-                    value={auction?.type}
+                    defaultValue ={auction?.type}
                 >
                     {items.map((item, index) => (
                     <option key={index} value={item.value}>
@@ -123,7 +122,7 @@ const AuctionForm = ({ auction }: Props) => {
                 <select 
                     className={`select select-bordered w-full max-w-xs ${errors.Year ? 'border-red-500' : ''}`} 
                     {...register("Year", { required: "Year is required" })}
-                    value={auction?.year}
+                    defaultValue ={auction?.year}
                 >
                     {years.map((year) => (
                     <option key={year} value={year}>

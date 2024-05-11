@@ -1,7 +1,7 @@
 import { getTokenWorkaround } from "@/app/actions/AuthActions";
 
 //import { getTokenWorkaround } from "@/app/actions/authActions";
-const baseUrl = 'http://localhost:6001/';
+const baseUrl = process.env.API_URL;
 
 async function get(url: string) {
     const requestOptions = {
@@ -53,15 +53,19 @@ async function getHeaders() {
 
 async function handleResponse(response: Response) {
     const text = await response.text();
-    console.log(text);
-    const data = text && JSON.parse(text);
+    let data;
+    try {
+        data = JSON.parse(text);
+    } catch (error) {   
+        data = text;
+    }
 
     if (response.ok) {
         return data || response.statusText;
     } else {
         const error = {
             status: response.status,
-            message: response.statusText
+            message: typeof data === 'string' ? data : response.statusText
         }
         console.log(error);
         return {error};

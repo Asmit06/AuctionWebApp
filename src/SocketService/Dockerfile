@@ -16,12 +16,14 @@ COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityServ
 #restore package deps
 RUN dotnet restore AuctionSite.sln
 #copy the app folders over
-COPY src/IdentityService src/IdentityService
-WORKDIR /app/src/IdentityService 
+COPY src/SocketService src/SocketService
+COPY src/Contracts src/Contracts
+
+WORKDIR /app/src/SocketService 
 RUN dotnet publish -c Release -o /app/src/out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/src/out .
-ENTRYPOINT [ "dotnet", "IdentityService.dll" ]
+ENTRYPOINT [ "dotnet", "SocketService.dll" ]
